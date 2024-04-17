@@ -1,9 +1,10 @@
+import TipType from '@/components/ui/TipType'
 import React from 'react'
 
 const page = ({ params: { oddType, id }}: { params: { oddType: string, id: string}}) => {
   return (
     <div>
-      {oddType} page
+      <TipType oddType={oddType}/>
     </div>
   )
 }

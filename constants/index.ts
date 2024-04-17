@@ -5,14 +5,14 @@ export const tipType = [
     },
     {
         name: "two odds",
-        src:"/twoodds"
+        src:"/tips/twoodds"
     },
     {
         name: "five odds",
-        src:"/twoodds"
+        src:"/tips/fiveodds"
     },
     {
         name: "seven odds",
-        src:"/twoodds"
+        src:"/tips/sevenodds"
     }   
 ]
