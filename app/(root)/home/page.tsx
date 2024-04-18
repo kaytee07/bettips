@@ -28,9 +28,26 @@ const Home = () => {
     oddType: "",
   });
 
-  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(selectedImage)
+
+    const formData = new FormData();
+    formData.append("image", selectedImage?.img || "null")
+    
+    try {
+      const response = await fetch(`/api/odds/${selectedImage.oddType}`, {
+        method: 'POST',
+        body: formData
+      })
+
+      if (response.ok) {
+        console.log(response)
+      } else {
+        console.error("Image upload failed")
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error)
+    }
   };
 
 

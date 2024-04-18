@@ -9,7 +9,7 @@ export const connectToDB = async () => {
     }
 
     try {
-        await mongoose.connect(process.env?.MONGOURI || "jknmslkmjnskks");
+        await mongoose.connect(process.env?.MONGODBURI || "jknmslkmjnskks", {dbName: "bettips"});
         isConnected = true;
         console.log(`MongoDB is connected`);
     } catch (error) {
