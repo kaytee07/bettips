@@ -1,4 +1,5 @@
-import { Button } from "@/components/ui/button"
+"use client"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,58 +7,91 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 const Home = () => {
+  const [selectedImage, setSelectedImage] = useState<{
+    img: File | null;
+    oddType: string;
+  }>({
+    img: null,
+    oddType: "",
+  });
+
+  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(selectedImage)
+  };
+
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const imageFile = e.target.files?.[0];
+    setSelectedImage((prevImage) => ({
+      ...prevImage,
+      img: imageFile || null,
+    }));
+  };
+
   return (
-    <div className="">
-    <Card className="w-[350px]">
-      <CardHeader>
-        <CardTitle>Create project</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" placeholder="Name of your project" />
+    <div className="flex flex-col items-center justify-center">
+      <Card className="w-[350px]">
+        <CardHeader>
+          <CardTitle>Upload Image</CardTitle>
+          <CardDescription>Select oddtype and upload bet slip</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit}>
+            <div className="grid w-full items-center gap-4">
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="slip">Upload slip</Label>
+                <Input
+                  onChange={handleImageChange}
+                  type="file"
+                  id="slip"
+                  placeholder="Name of your project"
+                />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="framework">Oddtype</Label>
+                <Select onValueChange={(value) => {
+                  setSelectedImage((prevImage) => ({
+                    ...prevImage,
+                    oddType: value
+                  }))
+                }}>
+                  <SelectTrigger id="framework">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    <SelectItem value="two odds">two odds</SelectItem>
+                    <SelectItem value="five odds">five odds</SelectItem>
+                    <SelectItem value="seven odds">seven odds</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="framework">Framework</Label>
-              <Select>
-                <SelectTrigger id="framework">
-                  <SelectValue placeholder="Select" />
-                </SelectTrigger>
-                <SelectContent position="popper">
-                  <SelectItem value="next">Next.js</SelectItem>
-                  <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                  <SelectItem value="astro">Astro</SelectItem>
-                  <SelectItem value="nuxt">Nuxt.js</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </form>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
-        <Button>Deploy</Button>
-      </CardFooter>
-    </Card>
+            <CardFooter className="flex justify-between p-0 pt-5 ">
+              <Button type="submit">Upload</Button>
+            </CardFooter>
+          </form>
+        </CardContent>
+        
+      </Card>
       <p>Home</p>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
+
 
