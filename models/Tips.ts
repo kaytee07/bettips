@@ -5,6 +5,10 @@ const TipsSchema = new Schema({
         type: String,
         required: true
     },
+    publicId: {
+        type: String,
+        required: true
+    },
     imageUrl: {
         type: String,
         required: true,
@@ -15,6 +19,6 @@ const TipsSchema = new Schema({
     }
 }, {timestamps: true});
 
-const Tips = models.Tips || model("Tips", TipsSchema);
+const Tips = models.Tip || model("Tip", TipsSchema);
 export default Tips;
 

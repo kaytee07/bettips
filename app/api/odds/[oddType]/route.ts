@@ -28,6 +28,7 @@ export const POST  = async (req: any, { params } : { params : ParamProps}) => {
         const formData = await req.formData();
         const file = formData.get('image') as File;
 
+
         const fileBuffer = await file.arrayBuffer();
         const mimeType = file.type;
         const encoding = "base64";
@@ -36,9 +37,11 @@ export const POST  = async (req: any, { params } : { params : ParamProps}) => {
         const fileUri = "data:" + mimeType + ";" + encoding + "," + base64Data;
 
         const res = await uploadToCloudinary(fileUri, file.name);
+        console.log(res);
         if(res.success && res.result) {
             const newTips = new Tips({
                 filename: file.name,
+                publicId: res.result.public_id,
                 imageUrl: res.result.secure_url,
                 tipType: oddType
             })
@@ -56,18 +59,21 @@ export const POST  = async (req: any, { params } : { params : ParamProps}) => {
 
  export const DELETE = async ( req:any, {params} : { params : ParamProps}) => {
     try {
-        const { imageUrl } = req.json();
+        const { imageUrl } = await req.json();
         await connectToDB();
         const tipToDelete = await Tips.findOne({ imageUrl });
-        cloudinary.uploader.destroy(tipToDelete.filename, (error: any, result: any) => {
+        console.log(tipToDelete.publicId);
+        cloudinary.uploader.destroy(tipToDelete.publicId, async (error: any, result: any) => {
             if (error) {
                 console.error('Error deleting asset:', error);
             } else {
+                await Tips.findOneAndDelete({ imageUrl });
                 console.log('Asset deleted successfully:', result);
+
             }
         });
-        // await Tips.findOneAndDelete({ imageUrl: oddType});
-        new Response( JSON.stringify("deleted successfully"), { status: 500 });
+        
+        new Response( JSON.stringify("deleted successfully"), { status: 200 });
     } catch (error) {
         new Response("unable to delete image", { status: 500 });
     }
