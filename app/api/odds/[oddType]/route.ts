@@ -1,17 +1,19 @@
 import { connectToDB } from "@/utils/database";
 import Tips from "@/models/Tips";
 import { uploadToCloudinary } from "@/utils/uploadToCloudinary";
+import cloudinary from "@/utils/cloudinary";
 
 
 interface ParamProps {
     oddType: string;
 }
 
-export const GET  = async ({ params } : { params : ParamProps}) => {
+export const GET  = async (req: any, { params } : { params : ParamProps}) => {
     try {
         //if user is logged in or if user has id from payStack
+        let oddType = params.oddType.replace(" ", "");
         await connectToDB();
-        const slips = await Tips.find({ tipType: params.oddType });
+        const slips = await Tips.find({ tipType: oddType });
         return new Response(JSON.stringify(slips), { status: 200 });
     } catch (error) {
         return new Response(JSON.stringify("Tip not uploaded yet"), { status: 500 })
@@ -21,6 +23,8 @@ export const GET  = async ({ params } : { params : ParamProps}) => {
 export const POST  = async (req: any, { params } : { params : ParamProps}) => {
     try {
         await connectToDB();
+        let oddType = params.oddType.replace(" ", "");
+        console.log(oddType)
         const formData = await req.formData();
         const file = formData.get('image') as File;
 
@@ -34,8 +38,9 @@ export const POST  = async (req: any, { params } : { params : ParamProps}) => {
         const res = await uploadToCloudinary(fileUri, file.name);
         if(res.success && res.result) {
             const newTips = new Tips({
+                filename: file.name,
                 imageUrl: res.result.secure_url,
-                tipType: params.oddType
+                tipType: oddType
             })
 
             await newTips.save();
@@ -51,9 +56,19 @@ export const POST  = async (req: any, { params } : { params : ParamProps}) => {
 
  export const DELETE = async ( req:any, {params} : { params : ParamProps}) => {
     try {
+        const { imageUrl } = req.json();
         await connectToDB();
-        const deletedTip = await Tips.findOneAndDelete({ imageUrl: params.oddType});
+        const tipToDelete = await Tips.findOne({ imageUrl });
+        cloudinary.uploader.destroy(tipToDelete.filename, (error: any, result: any) => {
+            if (error) {
+                console.error('Error deleting asset:', error);
+            } else {
+                console.log('Asset deleted successfully:', result);
+            }
+        });
+        // await Tips.findOneAndDelete({ imageUrl: oddType});
+        new Response( JSON.stringify("deleted successfully"), { status: 500 });
     } catch (error) {
-        
+        new Response("unable to delete image", { status: 500 });
     }
  }
