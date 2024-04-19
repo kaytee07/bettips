@@ -57,7 +57,7 @@ export const POST  = async (req: any, { params } : { params : ParamProps}) => {
     }
  }
 
- export const DELETE = async ( req:any, {params} : { params : ParamProps}) => {
+export const DELETE = async (req: any, { params }: { params: ParamProps }) => {
     try {
         const { imageUrl } = await req.json();
         await connectToDB();
@@ -66,15 +66,16 @@ export const POST  = async (req: any, { params } : { params : ParamProps}) => {
         cloudinary.uploader.destroy(tipToDelete.publicId, async (error: any, result: any) => {
             if (error) {
                 console.error('Error deleting asset:', error);
+                return new Response(JSON.stringify("Error deleting asset:"), { status: 500 });
             } else {
                 await Tips.findOneAndDelete({ imageUrl });
                 console.log('Asset deleted successfully:', result);
-
+                return new Response(JSON.stringify("Asset deleted successfully"), { status: 200 });
             }
         });
-        
-        new Response( JSON.stringify("deleted successfully"), { status: 200 });
+
+        return new Response(JSON.stringify("Asset deleted successfully"), { status: 200 });
     } catch (error) {
-        new Response("unable to delete image", { status: 500 });
+        return new Response("Unable to delete image", { status: 500 });
     }
- }
+};

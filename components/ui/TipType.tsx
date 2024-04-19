@@ -22,6 +22,8 @@ interface TipProps {
 }
 
 
+
+
 const TipType = ({oddType}: oddTypeProps) => {
   const [ images, setImages] = useState([])
 
@@ -36,6 +38,11 @@ const TipType = ({oddType}: oddTypeProps) => {
     if (response.ok){
       console.log(await response.json())
     }
+
+    const newImage = images.filter((image) => {
+      return image.imageUrl !== imageUrl
+    })
+    setImages(newImage);
   }
 
   useEffect(() => {
