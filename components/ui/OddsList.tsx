@@ -1,106 +1,36 @@
 "use client"
-import HomeCard from "./HomeCard"
+import OddsCard from "./OddsCard"
 
 
-const MeetingTypeList = () => {
-    const { toast } = useToast();
-    const router = useRouter()
-    const [meetingState, setMeetingState] = 
-    useState<'isScheduleMeeting' | 'isJoiningMeeting' |
-    'isInstantMeeting' | undefined>(); 
-    const { user } = useUser();
-    const client = useStreamVideoClient();
-    const [callValues, setCallValues] = useState({
-      dateTime: new Date(),
-      description: '',
-      link: ""
-    });
-    const [callDetails, setCallDetails] = useState<Call>()
+const OddsList = () => {
 
-    const createMeeting = async () => {
-      if(!user || !client) return
-      try {
-        if(!callValues.dateTime){
-          toast({ title: "Please select a date and time" });
-        }
-
-        const id = crypto.randomUUID();
-        const call = client.call('default', id);
-
-        if(!call) throw new Error('Failed to create call');
-
-        const startsAt = callValues.dateTime.toISOString() ||
-        new Date(Date.now()).toISOString();
-        const description = callValues.description || 'Instant Meeting';
-        
-        await call.getOrCreate({
-          data: {
-            starts_at: startsAt,
-            custom: {
-              description
-            }
-          }
-        })
-
-        setCallDetails(call)
-
-        if(!callValues.description){
-          router.push(`/meeting/${call.id}`)
-        }
-
-        toast({title: "Meeting created"});
-      } catch (error) {
-        console.log(error);
-        toast({
-          title: "Failed to create meeting",
-          description: "Friday, February 10, 2023 at 5:57 PM",
-        })
-      }
-    };
 
   return (
     <section className="grid grid-cols-1 gap-5 
      md:grid-cols-2 lg:grid-cols-4">
-       <HomeCard 
+       <OddsCard 
             icon="/icons/add-meeting.svg"
-            title="New Meeting"
-            description="start an instant meeting"
+            title="3 straight draws: Ghc 80.00"
+            description="accurate three straight draws"
             bgColor="bg-orange-1"
-            handleClick={() => setMeetingState('isInstantMeeting')}
+            handleClick={() => {}}
         />
-       <HomeCard 
+       <OddsCard 
             icon="/icons/join-meeting.svg"
-            title="Join Meeting"
-            description="start an instant meeting"
+            description="get "
+            title="5 odds: Ghc 35.00"
             bgColor="bg-blue-1"
-            handleClick={() => setMeetingState('isJoiningMeeting')}
+            handleClick={() => {}}
         />
-       <HomeCard 
+       <OddsCard 
             icon="/icons/schedule.svg"
-            title="Schedule Meeting"
-            description="Plan your meeting"
+            title="Midnight/Basketball games: Ghc 50.00"
+            description="Get your accurate midnight games"
             bgColor="bg-purple-1"
-            handleClick={() => setMeetingState('isScheduleMeeting')}
+            handleClick={() => {}}
         />
-       <HomeCard 
-            icon="/icons/recordings.svg"
-            title="View Recordings"
-            description="Meeting Recordings"
-            bgColor="bg-yellow-1"
-            handleClick = {() => router.push('/recordings')}
-        />
-
-        <MeetingModal
-            isOpen = {meetingState === "isInstantMeeting"}
-            onClose={() => setMeetingState(undefined)}
-            className="text-center"
-            buttonText="Start Meeting"
-            handleClick={createMeeting}
-            title="Start an instant Meeting"
-        />
-
     </section>
   )
 }
 
-export default MeetingTypeList
+export default OddsList

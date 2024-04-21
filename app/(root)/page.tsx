@@ -1,10 +1,10 @@
-import MeetingTypeList from '@/components/ui/MeetingTypeList';
+import OddsList from '@/components/ui/OddsList';
 
 const Home = () => {
   const now = new Date();
   const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit'});
   const date = (new Intl.DateTimeFormat('en-US', { dateStyle: 'full'})).format(now);
-o
+
   return (
         <section className='flex size-full flex-col text-white gap-10'>
           <div className='h-[300px] w-full rounded-[20px]
@@ -26,7 +26,7 @@ o
             </div>
           </div>
 
-          <MeetingTypeList/>
+          <OddsList/>
         </section>
         
   )

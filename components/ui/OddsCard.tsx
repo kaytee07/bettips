@@ -10,7 +10,7 @@ interface HomeCardProps {
     description: string
 }
 
-const HomeCard = ({ icon, bgColor, handleClick, title, description}: HomeCardProps) => {
+const OddsCard = ({ icon, bgColor, handleClick, title, description}: HomeCardProps) => {
   return (
     <div className={cn("px-4 py-6 flex flex-col justify-between w-full xl:max-w-[290px] min-h-[260px] rounded-[14px] cursor-pointer", bgColor)}
        onClick={handleClick}>
@@ -31,4 +31,4 @@ const HomeCard = ({ icon, bgColor, handleClick, title, description}: HomeCardPro
   )
 }
 
-export default HomeCard
+export default OddsCard
