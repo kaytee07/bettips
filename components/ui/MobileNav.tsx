@@ -8,6 +8,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { tipType } from "@/constants"
+import Image from "next/image"
 import Link from "next/link"
 
 
@@ -15,7 +16,14 @@ const MobileNav = () => {
   return (
     <div>
       <Sheet>
-        <SheetTrigger>Open</SheetTrigger>
+        <SheetTrigger className="pt-3">
+          <Image
+            src="/icons/hamburger.svg"
+            alt="hamburger"
+            width={40}
+            height={40}
+          />
+        </SheetTrigger>
         <SheetContent side="left" className="border-none text-white bg-dark-1">
             <p className='text-[26px] font-extrabold text-white'>Bettips</p>
             <section className="flex h-full flex-col gap-6 

@@ -1,18 +1,25 @@
 export const tipType = [
     {
         name: "home",
-        src:"/home"
+        src:"/home",
+        imageUrl:"/icons/Home.svg"
     },
     {
-        name: "two odds",
-        src:"/tips/twoodds"
+        name: "3 straight draws",
+        src:"/tips/twoodds",
+        imageUrl:"/icons/Home.svg"
+
     },
     {
         name: "five odds",
-        src:"/tips/fiveodds"
+        src:"/tips/fiveodds",
+        imageUrl:"/icons/Home.svg"
+
     },
     {
-        name: "seven odds",
-        src:"/tips/sevenodds"
+        name: "midnight/basketball games",
+        src:"/tips/sevenodds",
+        imageUrl:"/icons/Home.svg"
+
     }   
 ]
