@@ -1,4 +1,5 @@
 import Tips from "@/models/Tips";
+import { connectToDB } from "@/utils/database";
 var paystack = require('paystack')(process.env.PAYSTACK_SECRET_KEY);
 import { redirect } from "next/navigation";
 
@@ -6,26 +7,28 @@ interface ParamProps {
     oddType: string;
 }
 
-export const POST = async ( req: any, {params} : { params : ParamProps}) => {
+export const POST = async (req: any, { params }: { params: ParamProps }) => {
     try {
+        await connectToDB();
         const getAvailableOdds = await Tips.find({ tipType: params.oddType });
-        if(getAvailableOdds.length === 0) new Response(JSON.stringify("games not posted yet"), { status: 400 });
+
+        // if (getAvailableOdds.length === 0) {
+        //     return new Response(JSON.stringify("games not posted yet"), { status: 404 });
+        // }
+
         const { amount } = await req.json();
-        console.log(amount)
-        let kobo_amount = amount * 100;
+        const kobo_amount = amount * 100;
+
         const transaction = await paystack.transaction.initialize({
             email: 'sambrucehubrich@gmail.com',
             amount: kobo_amount,
             callback_url: `http://localhost:3000/tips/${params.oddType}`
-        }).then(function(body: any) {
-            console.log(body.data)
-            redirect(body.data.authorization_url)
-            return;
-        }).catch(function(error: any) {
-            console.log(error)
-            return new Response(JSON.stringify(error), { status: 400 })
         });
+
+        const paystackPaymentAPI = transaction.data.authorization_url || "can't get API";
+
+        return new Response(JSON.stringify(paystackPaymentAPI), { status: 200 });
     } catch (error) {
-        console.error(error)
+        console.error(error);
     }
-}
+};

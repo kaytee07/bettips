@@ -66,6 +66,10 @@
     }
   }
 
+        .cl-providerIcon__apple {
+          filter: invert(1)
+        }
+
   @layer base {
     * {
       @apply border-border;

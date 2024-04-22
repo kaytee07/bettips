@@ -12,7 +12,7 @@ interface HomeCardProps {
 
 const OddsCard = ({ icon, bgColor, handleClick, title, description}: HomeCardProps) => {
   return (
-    <div className={cn("px-4 py-6 flex flex-col justify-between w-full xl:max-w-[290px] min-h-[260px] rounded-[14px] cursor-pointer", bgColor)}
+    <div className={cn("px-4 py-6 flex flex-col bg-hero justify-between w-full xl:max-w-[290px] min-h-[260px] rounded-[14px] cursor-pointer", bgColor)}
        onClick={handleClick}>
         <div className="flex-center glassmorphism size-12
          rounded-[10px]">

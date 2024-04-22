@@ -1,9 +1,11 @@
 "use client"
+import { useRouter } from 'next/navigation';
 import OddsCard from "./OddsCard"
+import {Card, CardFooter, Image, Button, CardHeader} from "@nextui-org/react";
 
 
 const OddsList = () => {
-
+  const router = useRouter();
   const handlePayment = async (oddType:string, amount:number) => {
     const response = await fetch(`/api/pay/${oddType}`, {
       method:"POST",
@@ -11,6 +13,11 @@ const OddsList = () => {
         amount
       })
     })
+
+    if (response.ok) {
+      let url = await response.json();
+      router.push(url);
+    }
   }
 
   return (
