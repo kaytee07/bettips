@@ -6,20 +6,20 @@ export const tipType = [
     },
     {
         name: "3 straight draws",
-        src:"/tips/twoodds",
-        imageUrl:"/icons/Home.svg"
+        src:"/tips/threestraightdraw",
+        imageUrl:"/icons/icons8-handshake-50.png"
 
     },
     {
         name: "five odds",
         src:"/tips/fiveodds",
-        imageUrl:"/icons/Home.svg"
+        imageUrl:"/icons/icons8-win-32.png"
 
     },
     {
-        name: "midnight/basketball games",
-        src:"/tips/sevenodds",
-        imageUrl:"/icons/Home.svg"
+        name: "midnight/basketball",
+        src:"/tips/midnightbasketball",
+        imageUrl:"/icons/icons8-basketball-64.png"
 
     }   
 ]

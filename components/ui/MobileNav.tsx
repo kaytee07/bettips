@@ -36,6 +36,12 @@ const MobileNav = () => {
                             key={index}
                             className="flex gap-4 p-4 rounded-lg justify-start"
                         >
+                           <Image
+                                src={tips.imageUrl}
+                                alt={tips.name}
+                                width={24}
+                                height={24}
+                            />
                             <p className="text-lg font-semibold">
                                 {tips.name}
                             </p>
