@@ -8,8 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast"
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Loader from "@/components/ui/Loader";
 import {
   Select,
   SelectContent,
@@ -18,6 +20,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { image } from "@nextui-org/react";
+
 
 const Home = () => {
   const [selectedImage, setSelectedImage] = useState<{
@@ -27,10 +31,12 @@ const Home = () => {
     img: null,
     oddType: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const formData = new FormData();
     formData.append("image", selectedImage?.img || "null")
     
@@ -39,6 +45,13 @@ const Home = () => {
         method: 'POST',
         body: formData
       })
+
+      if(response){
+        setIsLoading(false);
+        toast({
+          description: "image uploaded"
+        })
+      }
 
       if (response.ok) {
         console.log(response)
@@ -61,7 +74,9 @@ const Home = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <Card className="w-[350px]">
+      {
+        !isLoading ? (
+          <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Upload Image</CardTitle>
           <CardDescription>Select oddtype and upload bet slip</CardDescription>
@@ -90,21 +105,26 @@ const Home = () => {
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    <SelectItem value="two odds">two odds</SelectItem>
+                    <SelectItem value="three straight draw">three straight draw</SelectItem>
                     <SelectItem value="five odds">five odds</SelectItem>
-                    <SelectItem value="seven odds">seven odds</SelectItem>
+                    <SelectItem value="midnightbasketball">midnightbasketball</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
             <CardFooter className="flex justify-between p-0 pt-5 ">
-              <Button type="submit">Upload</Button>
+              <Button type="submit"
+              >Upload</Button>
             </CardFooter>
           </form>
         </CardContent>
         
       </Card>
-      <p>Home</p>
+        ) : (
+          <Loader/>
+        )
+      }
+      
     </div>
   );
 };

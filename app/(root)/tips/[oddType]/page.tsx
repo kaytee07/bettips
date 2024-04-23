@@ -7,7 +7,6 @@ import { headers } from "next/headers";
 const page = ({ params: { oddType, id }}: { params: { oddType: string, id: string}}) => {
   const headersList = headers();
   const referer = headersList.get('referer');
-  console.log("dog")
   return (
     <div>
       <TipType oddType={oddType}/>

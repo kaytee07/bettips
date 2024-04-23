@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 
 
@@ -68,13 +69,14 @@ const TipType = ({oddType}: oddTypeProps) => {
       {images.length &&
        images.map((tip: TipProps, index) => {
         return   (
-          <Card className="w-[350px]" key={index}>
+          <Card className="w-full" key={index}>
             <div className="section w-full items-center p-6 pt-0 flex justify-between">
               <Image
                 src={tip.imageUrl}
                 alt={tip.tipType}
-                width={50}
-                height={50}
+                width={200}
+                height={200}
+                className={cn('w-full crisp-edges')}
               />
             </div>
             <CardFooter className="flex justify-between">
