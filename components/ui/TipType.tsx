@@ -4,9 +4,13 @@ import {
   CardFooter,
 } from "@/components/ui/card"
 
-import { Button } from "./button"
-import Image from "next/image"
-import { useEffect, useState } from "react"
+import { Button } from "./button";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { useRouter, useSearchParams } from "next/navigation";
+
+
 
 interface oddTypeProps {
     oddType: string,
@@ -21,7 +25,11 @@ interface TipProps {
 
 
 const TipType = ({oddType}: oddTypeProps) => {
-  const [ images, setImages] = useState([])
+  const [ images, setImages] = useState([]);
+  const { user } = useUser();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const reference = searchParams.get('reference');
 
   const handleDelete = async (tiptype: string, imageUrl:string) => {
     const response = await fetch(`/api/odds/${tiptype}`, {
@@ -35,23 +43,26 @@ const TipType = ({oddType}: oddTypeProps) => {
       console.log(await response.json())
     }
 
-    const newImage = images.filter((image) => {
-      return image.imageUrl !== imageUrl
-    })
+    const newImage = images.filter((image) => image.imageUrl !== imageUrl)
     setImages(newImage);
   }
 
   useEffect(() => {
     const getTips = async () => {
-      const response = await fetch(`/api/odds/${oddType}`);
-
-      const allSlips = await response.json()
-      if(response.ok){
-        setImages(allSlips)
+      try {
+        const response = await fetch(`/api/odds/${oddType}`);
+        if (response.ok) {
+        const allSlips = await response.json();
+        setImages(allSlips);
+        if(!user || reference) router.push("/sign-in");
       }
+    } catch (error) {
+      console.error("Error fetching tips:", error);
     }
-    getTips()
-  }, [oddType])
+  };
+      getTips();
+    
+  }, [user, reference, oddType]);
   return (
     <section className="flex flex-col gap-6 pt-10 items-center">
       {images.length &&
