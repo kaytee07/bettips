@@ -2,8 +2,9 @@
 import { useRouter } from 'next/navigation';
 import OddsCard from "./OddsCard"
 import {Card, CardFooter, Image, Button, CardHeader} from "@nextui-org/react";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Loader from './Loader';
+import { toast } from './use-toast';
 
 
 const OddsList = () => {
@@ -21,8 +22,18 @@ const OddsList = () => {
     if (response.ok) {
       let url = await response.json();
       router.push(url);
+    } else {
+      setIsLoading(false);
+      console.log("No tip uploaded yet")
+      toast({
+        description: "No tip uploaded yet"
+      })
     }
   }
+
+  useEffect (() => {
+
+  }, [isLoading])
 
   return (
     <>

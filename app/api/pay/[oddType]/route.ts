@@ -12,9 +12,9 @@ export const POST = async (req: any, { params }: { params: ParamProps }) => {
         await connectToDB();
         const getAvailableOdds = await Tips.find({ tipType: params.oddType });
 
-        // if (getAvailableOdds.length === 0) {
-        //     return new Response(JSON.stringify("games not posted yet"), { status: 404 });
-        // }
+        if (getAvailableOdds.length === 0) {
+            return new Response(JSON.stringify("games not posted yet"), { status: 404 });
+        }
 
         const { amount } = await req.json();
         const kobo_amount = amount * 100;
