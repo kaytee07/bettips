@@ -105,7 +105,7 @@ const Home = () => {
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    <SelectItem value="three straight draw">three straight draw</SelectItem>
+                    <SelectItem value="threestraightdraw">threestraightdraw</SelectItem>
                     <SelectItem value="five odds">five odds</SelectItem>
                     <SelectItem value="midnightbasketball">midnightbasketball</SelectItem>
                   </SelectContent>

@@ -44,7 +44,7 @@ const TipType = ({oddType}: oddTypeProps) => {
       console.log(await response.json())
     }
 
-    const newImage = images.filter((image) => image.imageUrl !== imageUrl)
+    const newImage = images.filter((image: any) => image.imageUrl !== imageUrl)
     setImages(newImage);
   }
 
@@ -55,7 +55,7 @@ const TipType = ({oddType}: oddTypeProps) => {
         if (response.ok) {
         const allSlips = await response.json();
         setImages(allSlips);
-        if(!user || reference) router.push("/sign-in");
+        if(!user && !reference) router.push("/sign-in");
       }
     } catch (error) {
       console.error("Error fetching tips:", error);
@@ -74,14 +74,16 @@ const TipType = ({oddType}: oddTypeProps) => {
               <Image
                 src={tip.imageUrl}
                 alt={tip.tipType}
-                width={200}
-                height={200}
+                width={400}
+                height={400}
                 className={cn('w-full crisp-edges')}
               />
             </div>
-            <CardFooter className="flex justify-between">
+            { user && (
+              <CardFooter className="flex justify-between">
               <Button onClick={() => {handleDelete(tip.tipType, tip.imageUrl)}} variant="destructive" className="w-full">Delete</Button>
-            </CardFooter>
+              </CardFooter>
+            )}
           </Card>
       )
        })

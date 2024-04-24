@@ -15,7 +15,7 @@ const Navbar = () => {
       >
         <p className="text-[26px] font-extrabold">Bettips</p>
       </Link>
-      <div className="flex gap-5 justify-between items-center">
+      <div className="flex gap-5 justify-between items-center text-white">
         {/* clerk user management */}
         <SignedIn>
           <UserButton />

@@ -70,6 +70,14 @@
     filter: invert(1)
   }
 
+  .cl-button__manageAccount {
+    color: white;
+  }
+
+  .cl-button__signOut {
+    color: white;
+  }
+
   @layer base {
     * {
       @apply border-border;
