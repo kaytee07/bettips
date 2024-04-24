@@ -4,15 +4,15 @@ import React from 'react'
 
 interface HomeCardProps {
     icon: string,
-    bgColor: string,
+    bgImg: string,
     handleClick: () => void,
     title: string,
     description: string
 }
 
-const OddsCard = ({ icon, bgColor, handleClick, title, description}: HomeCardProps) => {
+const OddsCard = ({ icon, bgImg, handleClick, title, description}: HomeCardProps) => {
   return (
-    <div className={cn("px-4 py-6 flex flex-col bg-her justify-between w-full  min-h-[260px] rounded-[14px] cursor-pointer", bgColor)}
+    <div className={cn("pt-4 flex flex-col bg-cover justify-between w-full  min-h-[260px] rounded-[14px] cursor-pointer", bgImg)}
        onClick={handleClick}>
         <div className="flex-center glassmorphism size-12
          rounded-[10px]">
@@ -23,9 +23,9 @@ const OddsCard = ({ icon, bgColor, handleClick, title, description}: HomeCardPro
              height={27}
             />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col px-4 gap-2 bg-[rgba(0,0,0,0.8)]">
             <h1 className="text-xl font-bold ">{title}</h1>
-            <p className="text-md font-normal">{description}</p>
+            <p className="text-xl font-bold">{description}</p>
         </div>
       </div>
   )

@@ -32,24 +32,25 @@ const OddsList = () => {
         <OddsCard 
             icon="/icons/add-meeting.svg"
             title="3 straight draws: Ghc 80.00"
-            description="accurate three straight draws"
-            bgColor="bg-orange-1"
+            description="click here to buy"
+            bgImg="bg-handshake"
             handleClick={() => { handlePayment("threestraightdraw", 80) }}
         />
        <OddsCard 
             icon="/icons/join-meeting.svg"
-            description="get "
+            description="click here to buy"
             title="5 odds: Ghc 35.00"
-            bgColor="bg-blue-1"
+            bgImg="bg-win"
             handleClick={() => { handlePayment("fiveodds", 35) }}
         />
        <OddsCard 
             icon="/icons/schedule.svg"
             title="Midnight/Basketball games: Ghc 50.00"
-            description="Get your accurate midnight games"
-            bgColor="bg-purple-1"
+            description="click here to buy"
+            bgImg="bg-basketball"
             handleClick={() => { handlePayment("midnightbasketball", 50) }}
         />
+        
         </section>
       ): (
         <Loader/>
