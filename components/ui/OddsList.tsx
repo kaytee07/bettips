@@ -2,11 +2,15 @@
 import { useRouter } from 'next/navigation';
 import OddsCard from "./OddsCard"
 import {Card, CardFooter, Image, Button, CardHeader} from "@nextui-org/react";
+import { useState } from 'react';
+import Loader from './Loader';
 
 
 const OddsList = () => {
   const router = useRouter();
+  const [ isLoading, setIsLoading ] = useState(false);
   const handlePayment = async (oddType:string, amount:number) => {
+    setIsLoading(true);
     const response = await fetch(`/api/pay/${oddType}`, {
       method:"POST",
       body: JSON.stringify({
@@ -21,9 +25,11 @@ const OddsList = () => {
   }
 
   return (
-    <section className="grid grid-cols-1 gap-5 w-full
+    <>
+      { !isLoading ? (
+        <section className="grid grid-cols-1 gap-5 w-full
      md:grid-cols-2 lg:grid-cols-3 lg:m-auto">
-       <OddsCard 
+        <OddsCard 
             icon="/icons/add-meeting.svg"
             title="3 straight draws: Ghc 80.00"
             description="accurate three straight draws"
@@ -44,7 +50,12 @@ const OddsList = () => {
             bgColor="bg-purple-1"
             handleClick={() => { handlePayment("midnightbasketball", 50) }}
         />
-    </section>
+        </section>
+      ): (
+        <Loader/>
+      )}
+       
+  </>
   )
 }
 
