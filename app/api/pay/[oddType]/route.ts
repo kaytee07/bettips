@@ -22,7 +22,7 @@ export const POST = async (req: any, { params }: { params: ParamProps }) => {
         const transaction = await paystack.transaction.initialize({
             email: 'sambrucehubrich@gmail.com',
             amount: kobo_amount,
-            callback_url: `http://localhost:3000/tips/${params.oddType}`
+            callback_url: `https://bettip.org/tips/${params.oddType}`
         });
 
         const paystackPaymentAPI = transaction.data.authorization_url || "can't get API";
