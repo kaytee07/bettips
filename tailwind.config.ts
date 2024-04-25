@@ -76,7 +76,7 @@ const config = {
         },
       },
       backgroundImage: {
-        win: "url('/images/fiveodds.jpg')",
+        win: "url('/images/fiveodds1.jpg')",
         handshake: "url('/images/3straight.jpg')",
         basketball: "url('/images/bball.jpg')",
         hero: "url('/images/hero-background.png')"
