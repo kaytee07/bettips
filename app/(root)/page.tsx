@@ -19,7 +19,7 @@ const Home = () => {
                   BETTIPS
                 </h1>
                 <p className="text-lg font-medium text-sky-1 lg:text-2xl">
-                  Get your accurately predicted tips here!
+                  winners are not people who never fail, but people who never quit!
                 </p>
               </div>
             </div>

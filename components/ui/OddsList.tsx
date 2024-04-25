@@ -21,6 +21,7 @@ const OddsList = () => {
 
     if (response.ok) {
       let url = await response.json();
+      console.log(response)
       router.push(url);
     } else {
       setIsLoading(false);

@@ -76,9 +76,9 @@ const config = {
         },
       },
       backgroundImage: {
-        win: "url('https://images.unsplash.com/photo-1535116574766-9a678bf80bf4?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-        handshake: "url('https://plus.unsplash.com/premium_photo-1675364965876-60dcedd0c703?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-        basketball: "url('https://images.unsplash.com/photo-1533923156502-be31530547c4?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+        win: "url('/images/fiveodds.jpg')",
+        handshake: "url('/images/3straight.jpg')",
+        basketball: "url('/images/bball.jpg')",
         hero: "url('/images/hero-background.png')"
       },
       borderRadius: {
