@@ -20,7 +20,7 @@ export const POST = async (req: any, { params }: { params: ParamProps }) => {
         const kobo_amount = amount * 100;
 
         const transaction = await paystack.transaction.initialize({
-            email: 'sambrucehubrich@gmail.com',
+            email: 'bettips@gmail.com',
             amount: kobo_amount,
             callback_url: `https://bettip.org/tips/${params.oddType}`
         });
