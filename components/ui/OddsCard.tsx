@@ -14,7 +14,7 @@ const OddsCard = ({ icon, bgImg, handleClick, title, description}: HomeCardProps
   return (
     <div className={cn("pt-4 flex flex-col bg-cover justify-between w-full  min-h-[260px] rounded-[14px] cursor-pointer", bgImg)}
        onClick={handleClick}>
-        <div className="flex-center bg-transparent glassmorphism size-12
+        <div className="flex-center hidden glassmorphism size-12
          rounded-[10px] d-">
             <Image
              src={icon}
