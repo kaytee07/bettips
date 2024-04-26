@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/components/ui/use-toast";
 
 
 
@@ -31,6 +32,7 @@ const TipType = ({oddType}: oddTypeProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const reference = searchParams.get('reference');
+  const { toast } = useToast();
 
   const handleDelete = async (tiptype: string, imageUrl:string) => {
     const response = await fetch(`/api/odds/${tiptype}`, {
@@ -47,6 +49,26 @@ const TipType = ({oddType}: oddTypeProps) => {
     const newImage = images.filter((image: any) => image.imageUrl !== imageUrl)
     setImages(newImage);
   }
+
+  useEffect(()=> {
+    const verifyReference = async () => {
+      const response = await fetch('/api/verify', {
+        method: "POST",
+        body: JSON.stringify({
+            reference
+        })
+      });
+      console.log(await response.json())
+      if(response.status == 200) {
+        toast({
+          description: "ok"
+        })
+      } else {
+        router.push("/");
+      }
+    }
+    verifyReference();
+  }, []);
 
   useEffect(() => {
     const getTips = async () => {
