@@ -59,8 +59,7 @@ const TipType = ({oddType}: oddTypeProps) => {
             reference
         })
       });
-      console.log(await response.json())
-      if(response.status == 200) {
+      if(response.ok) {
         toast({
           description: "ok"
         })
@@ -71,7 +70,7 @@ const TipType = ({oddType}: oddTypeProps) => {
     verifyReference();
     }
     
-  }, []);
+  }, [reference]);
 
   useEffect(() => {
     const getTips = async () => {
