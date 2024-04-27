@@ -51,7 +51,8 @@ const TipType = ({oddType}: oddTypeProps) => {
   }
 
   useEffect(()=> {
-    const verifyReference = async () => {
+    if (!user) {
+      const verifyReference = async () => {
       const response = await fetch('/api/verify', {
         method: "POST",
         body: JSON.stringify({
@@ -68,6 +69,8 @@ const TipType = ({oddType}: oddTypeProps) => {
       }
     }
     verifyReference();
+    }
+    
   }, []);
 
   useEffect(() => {
