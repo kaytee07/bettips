@@ -59,18 +59,25 @@ const TipType = ({oddType}: oddTypeProps) => {
             reference
         })
       });
-      if(response.ok) {
+      console.log(response.status)
+      if(response.status === 200) {
         toast({
           description: "ok"
         })
+      } else if(response.status === 400) {
+        toast({
+          description: "you've already been on the page"
+        })
+        router.push("/");
       } else {
+        console.log(response.status)
         router.push("/");
       }
     }
     verifyReference();
     }
     
-  }, [reference]);
+  },[]);
 
   useEffect(() => {
     const getTips = async () => {
@@ -87,7 +94,7 @@ const TipType = ({oddType}: oddTypeProps) => {
   };
       getTips();
     
-  }, [user, reference, oddType]);
+  }, [user]);
   return (
     <section className="flex flex-col gap-6 pt-10 items-center">
       {images.length &&
