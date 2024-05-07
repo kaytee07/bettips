@@ -28,6 +28,7 @@ interface TipProps {
 
 const TipType = ({oddType}: oddTypeProps) => {
   const [ images, setImages] = useState([]);
+  const [ paid, setPaid ] = useState(false);
   const { user } = useUser();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -64,10 +65,12 @@ const TipType = ({oddType}: oddTypeProps) => {
         toast({
           description: "ok"
         })
+        setPaid(true);
       } else if(response.status === 400) {
         toast({
           description: "you've already been on the page"
         })
+        setPaid(false)
         router.push("/");
       } else {
         console.log(response.status)
@@ -96,9 +99,11 @@ const TipType = ({oddType}: oddTypeProps) => {
     
   }, [user]);
   return (
+    
     <section className="flex flex-col gap-6 pt-10 items-center">
-      {images.length &&
-       images.map((tip: TipProps, index) => {
+    { paid ?  (
+      <div>
+        {images.length && images.map((tip: TipProps, index) => {
         return   (
           <Card className="w-full" key={index}>
             <div className="section w-full items-center p-6 pt-0 flex justify-between">
@@ -119,6 +124,11 @@ const TipType = ({oddType}: oddTypeProps) => {
       )
        })
      }
+     </div>
+    ) : (
+      <div></div>
+    )}
+      
     </section>
   )
 }
