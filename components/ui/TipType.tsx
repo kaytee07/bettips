@@ -11,6 +11,7 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
+import Loader from "./Loader";
 
 
 
@@ -126,7 +127,7 @@ const TipType = ({oddType}: oddTypeProps) => {
      }
      </div>
     ) : (
-      <div></div>
+      <Loader/>
     )}
       
     </section>
