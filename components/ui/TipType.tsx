@@ -102,10 +102,9 @@ const TipType = ({oddType}: oddTypeProps) => {
     
   }, [user]);
   return (
-    
-    <section className="flex flex-col gap-6 pt-10 items-center">
+    <>
     { paid ?  (
-      <div>
+      <section className="flex flex-col gap-6 pt-10 items-center">
         {images.length && images.map((tip: TipProps, index) => {
         return   (
           <Card className="w-full" key={index}>
@@ -127,12 +126,13 @@ const TipType = ({oddType}: oddTypeProps) => {
       )
        })
      }
-     </div>
+    </section>
     ) : (
       <Loader/>
     )}
       
-    </section>
+    
+    </>
   )
 }
 
