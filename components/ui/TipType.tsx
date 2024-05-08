@@ -79,6 +79,8 @@ const TipType = ({oddType}: oddTypeProps) => {
       }
     }
     verifyReference();
+    } else {
+      setPaid(true)
     }
     
   },[]);
